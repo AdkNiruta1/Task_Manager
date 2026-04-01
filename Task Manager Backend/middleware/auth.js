@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // A secure key. In production, this should be in .env!
-const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_taskmanager';
+const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_taskmaster';
 
 const auth = (req, res, next) => {
   // Get token from header

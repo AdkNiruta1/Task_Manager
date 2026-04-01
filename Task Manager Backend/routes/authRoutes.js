@@ -6,8 +6,6 @@ const User = require('../models/User');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super_secret_jwt_key_taskmanager';
 
-// @route   POST api/auth/register
-// @desc    Register a user
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -37,8 +35,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// @route   POST api/auth/login
-// @desc    Authenticate user & get token
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 

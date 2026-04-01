@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      // Basic extraction of user payload from token (for UI display)
+      
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
         setUser(payload.user);

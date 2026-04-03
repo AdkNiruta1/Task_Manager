@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const Contact = require('../models/Contact');
 const Feedback = require('../models/Feedback');
 
-// POST a new contact message (Public)
+// POST a new contact message 
 router.post('/contact', async (req, res) => {
   try {
     const { name, email, message } = req.body;
@@ -16,7 +16,7 @@ router.post('/contact', async (req, res) => {
   }
 });
 
-// POST new application feedback (Private - Requires Login)
+// POST new application feedback 
 router.post('/feedback', auth, async (req, res) => {
   try {
     const { rating, comment } = req.body;

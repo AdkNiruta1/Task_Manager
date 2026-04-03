@@ -25,7 +25,7 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
-// PUT /tasks/:id: update task (mark complete)
+// PUT /tasks/:id: update task 
 router.put('/:id', auth, async (req, res) => {
   try {
     const { id } = req.params;

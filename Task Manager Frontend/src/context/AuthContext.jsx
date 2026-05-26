@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components, react-hooks/set-state-in-effect */
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -8,6 +9,12 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [loading, setLoading] = useState(true);
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setUser(null);
+  };
+
   // Configure axios dynamically
   useEffect(() => {
     if (token) {
@@ -16,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const payload = JSON.parse(atob(token.split('.')[1]));
         setUser(payload.user);
-      } catch(e) {
+      } catch {
         logout();
       }
     } else {
@@ -36,12 +43,6 @@ export const AuthProvider = ({ children }) => {
     const res = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
     localStorage.setItem('token', res.data.token);
     setToken(res.data.token);
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setUser(null);
   };
 
   return (

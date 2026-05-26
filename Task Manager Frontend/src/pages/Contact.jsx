@@ -13,7 +13,7 @@ export default function Contact() {
       await axios.post('http://localhost:5000/api/contact', formData);
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };

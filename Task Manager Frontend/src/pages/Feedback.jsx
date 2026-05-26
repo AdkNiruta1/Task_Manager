@@ -1,12 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { Star, CheckCircle } from 'lucide-react';
+import { Star, CheckCircle, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 export default function Feedback() {
+  const { user, loading } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [comment, setComment] = useState('');
   const [status, setStatus] = useState('idle');
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-5xl px-4 mx-auto mt-4 flex justify-center py-24">
+        <div className="w-8 h-8 rounded-full border-4 border-slate-700 border-t-indigo-500 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="w-full max-w-5xl px-4 mx-auto animate-fade-in mt-4">
+        <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 p-8 md:p-12 rounded-3xl shadow-2xl min-h-[75vh] flex flex-col justify-center items-center text-center">
+          <div className="max-w-md mx-auto flex flex-col items-center">
+            <div className="bg-indigo-500/10 p-4 rounded-3xl text-indigo-400 mb-6 border border-indigo-500/20">
+              <Lock size={48} />
+            </div>
+            <h1 className="text-3xl font-bold text-white mb-3">Feedback Requires Sign In</h1>
+            <p className="text-slate-400 mb-8 text-lg">
+              To keep our feedback database clean and secure, only registered members of TaskSphere can submit feedback.
+            </p>
+            <div className="flex gap-4">
+              <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-400 hover:to-cyan-400 text-white rounded-xl font-bold transition-all hover:-translate-y-0.5">
+                Sign In
+              </Link>
+              <Link to="/register" className="px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white rounded-xl font-bold transition-all">
+                Create Account
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +55,7 @@ export default function Feedback() {
       setStatus('success');
       setRating(0);
       setComment('');
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };

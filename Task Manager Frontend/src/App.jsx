@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         
-        <div className="pb-16 w-full flex align-center justify-center">
+        <div className="pb-16 w-full flex items-center justify-center">
           <Routes>
             {/* Public Entry */}
             <Route path="/" element={<Landing />} />
